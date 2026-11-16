@@ -1,0 +1,37 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - index.qmd
+    - slides.qmd
+    - demo_complete.ipynb
+    - demo_live.ipynb
+    - practice.ipynb
+  resources:
+    - data/**
+    - talk_map*.html
+    - example_plot.html
+    - demo_complete.ipynb
+    - demo_live.ipynb
+    - practice.ipynb
+website:
+  title: "STAT 386: Exploring Text"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Start here
+      - href: slides.qmd
+        text: Slides
+      - href: demo_complete.ipynb
+        text: Completed demo
+      - href: demo_live.ipynb
+        text: Live demo
+      - href: practice.ipynb
+        text: Practice
+format:
+  html:
+    theme: cosmo
+    css: assets/lesson.css
+    toc: true
+execute:
+  enabled: false

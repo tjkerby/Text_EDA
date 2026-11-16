@@ -1,0 +1,31 @@
+body { color: #183341; }
+h1, h2, h3 { color: #087f83; }
+img { max-width: 100%; }
+.reveal { font-family: Arial, sans-serif; font-size: 29px; color: #183341; }
+.reveal .slides { text-align: left; }
+.reveal .slides section { padding: 20px 32px; box-sizing: border-box; }
+.reveal h1, .reveal h2 { color: #087f83; text-transform: none; font-family: Arial, sans-serif; line-height: 1.12; margin-bottom: 24px; }
+.reveal h1 { font-size: 1.55em; }
+.reveal h2 { font-size: 1.5em; }
+.reveal p { margin: 0 0 18px; }
+.reveal li { margin-bottom: 12px; }
+.reveal img { max-height: 350px; margin: 0; border: 0; box-shadow: none; }
+.reveal figcaption { display: none; }
+.reveal strong { color: #087f83; }
+.reveal pre { font-size: 22px; width: 100%; box-shadow: none; background: #eef4f4; padding: 14px; box-sizing: border-box; }
+.reveal pre code { max-height: none; }
+.reveal table { font-size: 23px; width: 100%; border-collapse: collapse; }
+.reveal th, .reveal td { padding: 10px 14px; border-bottom: 1px solid #cbd7db; text-align: left; }
+.reveal .notes { display: none; }
+.reveal .small, .reveal .attribution { font-size: 17px; color: #536c78; }
+.reveal a { color: #087f83; }
+.reveal .equation img { max-height: 95px; }
+.reveal .cosine-slide figure img { max-height: 260px; }
+.reveal .slide-number { font-size: 16px; color: #536c78; background: transparent; }
+.reveal .controls, .reveal .progress { color: #087f83; }
+main { max-width: 1000px; margin: 28px auto; padding: 0 24px; }
+.site-nav { padding: 16px 24px; background: #eef4f4; display: flex; gap: 22px; flex-wrap: wrap; }
+.site-nav a { color: #087f83; }
+pre { padding: 16px; background: #eef4f4; overflow-x: auto; }
+table { border-collapse: collapse; }
+td, th { padding: 8px 12px; border-bottom: 1px solid #ccd8dc; text-align: left; }

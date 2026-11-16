@@ -1,0 +1,87 @@
+---
+title: "Exploring Text with Embeddings"
+---
+
+Use a pretrained Nomic embedding model to turn text into vectors. Apply PHATE, then add one plotting feature at a time to investigate a question.
+
+## Open these in order
+
+1. [Slides](slides.qmd): EDA review, the text problem, embeddings, cosine similarity, local/cloud models, Ollama, and Nomic.
+2. [Completed demonstration](demo_complete.html) or [live scaffold](demo_live.html): the full coding progression in Positron.
+3. [Practice](practice.html): a separate place for student questions and investigation.
+
+The slides end at the notebook handoff. Plotting, filtering versus refitting, and the closing discussion stay in the demonstration notebook.
+
+<p><a href="demo_complete.ipynb" download>Download completed notebook</a> · <a href="demo_live.ipynb" download>Download live scaffold</a> · <a href="practice.ipynb" download>Download practice notebook</a></p>
+
+## Before using the model
+
+Open the project folder in Positron and run:
+
+```bash
+uv sync
+ollama pull nomic-embed-text:v1.5
+```
+
+Install and start the [Ollama application](https://ollama.com/download) separately. Select this project's `.venv` Python interpreter as the notebook kernel. Run the completed notebook once before class.
+
+The notebook previews show the code and elementary examples. Run the notebook with local Ollama to produce the Nomic vectors and talk maps. For student practice without Ollama, the instructor can share the `data/talk_embeddings.npz` file created by the demonstration.
+
+## What the code builds
+
+One phrase → several phrases → one kicker → all kickers → an embedding matrix → PHATE coordinates → a basic scatterplot → color → interactive hover → marker shapes → filtering → an optional subset-and-refit extension.
+
+[Read the data notes](data/README.md) for source links, fields, and sampling limits. The optional closing sections save the real embeddings for reuse and show exactly how to embed a Plotly HTML figure in a Quarto page.
+
+## Main references
+
+- [Nomic model card and task prefixes](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5)
+- [Nomic model in Ollama](https://ollama.com/library/nomic-embed-text:v1.5)
+- [Ollama embedding API](https://docs.ollama.com/api/embed)
+- [PHATE API](https://phate.readthedocs.io/en/stable/api.html)
+- Reimers and Gurevych (2019), [Sentence-BERT](https://arxiv.org/abs/1908.10084), source for the simplified sentence-encoder illustration.
+
+
+## Put a Plotly figure on your Quarto website
+
+This tiny example works without Ollama. The exported example is included here so the iframe below also works immediately when you run `quarto preview`.
+
+**1. Generate the HTML from Python**, for example in a notebook opened at the project root:
+
+```python
+import plotly.express as px
+
+example = px.scatter(x=[1, 2, 3], y=[1, 4, 9])
+example.write_html("example_plot.html", include_plotlyjs=True)
+```
+
+These are three illustrative numbers, not talk embeddings. Including Plotly's JavaScript makes the exported figure self-contained.
+
+**2. Paste this into your `.qmd` page**, with the exported file in the same folder:
+
+````markdown
+```{=html}
+<iframe src="example_plot.html" width="100%" height="450"
+        style="border: 0;" title="Small Plotly publishing example"></iframe>
+```
+````
+
+**3. Keep the file as a project resource.** This project's `_quarto.yml` already includes the following entries. In another project, merge them into its existing resource list:
+
+```yaml
+project:
+  resources:
+    - example_plot.html
+    - talk_map*.html
+```
+
+Then save the files and run `quarto preview` from the project terminal. For publication, run `quarto render` and commit the resulting `docs/` folder. Use a relative URL such as `example_plot.html`; do not use `docs/example_plot.html` inside the page.
+
+**Working result:**
+
+```{=html}
+<iframe src="example_plot.html" width="100%" height="450"
+        style="border: 0;" title="Small Plotly publishing example"></iframe>
+```
+
+For the real talk map, run the completed notebook's `full_map.write_html("talk_map.html", include_plotlyjs=True)` cell, then replace the filename in the iframe with `talk_map.html`. Keep that exported file at the project root; Quarto will copy it into `docs/`.

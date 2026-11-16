@@ -1,0 +1,436 @@
+[
+  {
+    "objectID": "practice.html",
+    "href": "practice.html",
+    "title": "Text EDA: practice",
+    "section": "",
+    "text": "Generate a few questions about the highlighted conference messages, then choose one to investigate.\nYour instructor should first run the completed demonstration and share its data/talk_embeddings.npz file with this project. That file is produced by running the demonstration’s save-vectors cell after local Nomic inference. It is not included in the initial download. Place the instructor-provided file in data/ before starting; then this notebook does not need a running model.\nUse the same project folder and .venv notebook kernel. Every row in the CSV retains its official source URL. The 52 short kickers form a selected teaching sample, not a census or random sample."
+  },
+  {
+    "objectID": "practice.html#load-the-data-and-the-saved-model-vectors",
+    "href": "practice.html#load-the-data-and-the-saved-model-vectors",
+    "title": "Text EDA: practice",
+    "section": "Load the data and the saved model vectors",
+    "text": "Load the data and the saved model vectors\n\nfrom pathlib import Pathimport numpy as npimport pandas as pdimport phateimport plotly.express as pxdf = pd.read_csv(\"data/talks.csv\")assert Path(\"data/talk_embeddings.npz\").exists(), \"Add the instructor-provided talk_embeddings.npz file to data/ first.\"saved = np.load(\"data/talk_embeddings.npz\", allow_pickle=False)assert saved[\"model\"].item() == \"nomic-embed-text:v1.5\"assert saved[\"prefix\"].item() == \"clustering: \"assert np.array_equal(saved[\"talk_id\"], df[\"talk_id\"].to_numpy(dtype=str))assert np.array_equal(saved[\"kicker\"], df[\"kicker\"].to_numpy(dtype=str))X = saved[\"embeddings\"]print(\"Talks by embedding features:\", X.shape)df[[\"title\", \"speaker\", \"year\", \"kicker\"]].head()"
+  },
+  {
+    "objectID": "practice.html#generate-questions-before-choosing-onewrite-several-possibilities-then-choose-a-question-that-a-plot-and-close-reading-could-help-answer.-for-example-consider-the-overlap-of-years-or-recorded-roles-among-similar-highlighted-messages.our-questionwhat-would-count-as-useful-evidence",
+    "href": "practice.html#generate-questions-before-choosing-onewrite-several-possibilities-then-choose-a-question-that-a-plot-and-close-reading-could-help-answer.-for-example-consider-the-overlap-of-years-or-recorded-roles-among-similar-highlighted-messages.our-questionwhat-would-count-as-useful-evidence",
+    "title": "Text EDA: practice",
+    "section": "Generate questions before choosing oneWrite several possibilities, then choose a question that a plot and close reading could help answer. For example, consider the overlap of years or recorded roles among similar highlighted messages.Our question:What would count as useful evidence?",
+    "text": "Generate questions before choosing oneWrite several possibilities, then choose a question that a plot and close reading could help answer. For example, consider the overlap of years or recorded roles among similar highlighted messages.Our question:What would count as useful evidence?"
+  },
+  {
+    "objectID": "practice.html#build-a-view-of-the-vectorskeep-the-model-vectors-in-x-and-add-separate-phate-plotting-coordinates-to-the-dataframe.-the-map-helps-you-choose-messages-to-inspect-its-axes-do-not-represent-named-topics.",
+    "href": "practice.html#build-a-view-of-the-vectorskeep-the-model-vectors-in-x-and-add-separate-phate-plotting-coordinates-to-the-dataframe.-the-map-helps-you-choose-messages-to-inspect-its-axes-do-not-represent-named-topics.",
+    "title": "Text EDA: practice",
+    "section": "Build a view of the vectorsKeep the model vectors in X and add separate PHATE plotting coordinates to the DataFrame. The map helps you choose messages to inspect; its axes do not represent named topics.",
+    "text": "Build a view of the vectorsKeep the model vectors in X and add separate PHATE plotting coordinates to the DataFrame. The map helps you choose messages to inspect; its axes do not represent named topics.\n\n# TODO: Fit PHATE with its defaults and random_state=386.# Attach the two returned coordinates to df."
+  },
+  {
+    "objectID": "practice.html#add-one-useful-layer-at-a-time",
+    "href": "practice.html#add-one-useful-layer-at-a-time",
+    "title": "Text EDA: practice",
+    "section": "Add one useful layer at a time",
+    "text": "Add one useful layer at a time\n\n# TODO: Begin with a basic scatterplot.# Add a color variable that helps your question.# Add hover details so you can read the kickers.# Use marker shapes only if they add something useful."
+  },
+  {
+    "objectID": "practice.html#return-to-the-original-textread-at-least-three-kickers-including-one-that-complicates-your-explanation.-follow-the-full-talk-source-links-if-a-kicker-is-insufficient.evidence-from-specific-kickersa-complication-or-counterexamplea-limitation-of-this-representation-or-sample",
+    "href": "practice.html#return-to-the-original-textread-at-least-three-kickers-including-one-that-complicates-your-explanation.-follow-the-full-talk-source-links-if-a-kicker-is-insufficient.evidence-from-specific-kickersa-complication-or-counterexamplea-limitation-of-this-representation-or-sample",
+    "title": "Text EDA: practice",
+    "section": "Return to the original textRead at least three kickers, including one that complicates your explanation. Follow the full-talk source links if a kicker is insufficient.Evidence from specific kickers:A complication or counterexample:A limitation of this representation or sample:",
+    "text": "Return to the original textRead at least three kickers, including one that complicates your explanation. Follow the full-talk source links if a kicker is insufficient.Evidence from specific kickers:A complication or counterexample:A limitation of this representation or sample:"
+  },
+  {
+    "objectID": "practice.html#optional-filter-or-refit",
+    "href": "practice.html#optional-filter-or-refit",
+    "title": "Text EDA: practice",
+    "section": "Optional: filter or refit",
+    "text": "Optional: filter or refit\n\n# TODO: Choose a meaningful subset using a pandas condition.# First display its existing coordinates.# If enough records remain, fit a new PHATE view of its original vectors.# Compare relationships, not absolute coordinates across the two maps."
+  },
+  {
+    "objectID": "practice.html#share-and-reflectstate-your-question-one-supported-finding-a-complication-and-a-next-check.-if-groups-are-remixed-ask-another-student-what-different-explanation-they-would-consider.the-map-compresses-the-vectors-the-vectors-represent-only-kickers-and-the-selected-sample-omits-much-of-the-archive.-state-your-conclusion-accordingly.",
+    "href": "practice.html#share-and-reflectstate-your-question-one-supported-finding-a-complication-and-a-next-check.-if-groups-are-remixed-ask-another-student-what-different-explanation-they-would-consider.the-map-compresses-the-vectors-the-vectors-represent-only-kickers-and-the-selected-sample-omits-much-of-the-archive.-state-your-conclusion-accordingly.",
+    "title": "Text EDA: practice",
+    "section": "Share and reflectState your question, one supported finding, a complication, and a next check. If groups are remixed, ask another student what different explanation they would consider.The map compresses the vectors, the vectors represent only kickers, and the selected sample omits much of the archive. State your conclusion accordingly.",
+    "text": "Share and reflectState your question, one supported finding, a complication, and a next check. If groups are remixed, ask another student what different explanation they would consider.The map compresses the vectors, the vectors represent only kickers, and the selected sample omits much of the archive. State your conclusion accordingly."
+  },
+  {
+    "objectID": "demo_complete.html",
+    "href": "demo_complete.html",
+    "title": "Text EDA: completed demonstration",
+    "section": "",
+    "text": "Question: Which highlighted conference messages express similar ideas, and how do their years and recorded speaker roles relate to those patterns?\nWe will build one step at a time: a phrase, a kicker, all kickers, a feature matrix, PHATE coordinates, and progressively more informative plots.\nBefore class, run uv sync, start the Ollama application, and run ollama pull nomic-embed-text:v1.5. Open this project folder in Positron and choose its .venv notebook kernel. All file paths below are relative to that folder.\nThe embedding calls use your local Nomic model. Model results will appear when you run the notebook.\nTeaching route: Sections 1–18 build the main demonstration. Section 19 is an optional refit extension. Finish with the discussion, then use the save-vectors and Plotly publishing sections as needed.\nRun cells from top to bottom. In the live scaffold, complete each TODO before running the cells that use its result. To prepare student practice, run the save-vectors cell once and share data/talk_embeddings.npz with the project."
+  },
+  {
+    "objectID": "demo_complete.html#embed-one-simple-phrasenomic-uses-task-prefixes.-clustering-asks-for-representations-useful-for-grouping-texts-by-common-content.-it-does-not-run-a-clustering-algorithm.-we-will-use-the-same-prefix-throughout.",
+    "href": "demo_complete.html#embed-one-simple-phrasenomic-uses-task-prefixes.-clustering-asks-for-representations-useful-for-grouping-texts-by-common-content.-it-does-not-run-a-clustering-algorithm.-we-will-use-the-same-prefix-throughout.",
+    "title": "Text EDA: completed demonstration",
+    "section": "1. Embed one simple phraseNomic uses task prefixes. clustering: asks for representations useful for grouping texts by common content. It does not run a clustering algorithm. We will use the same prefix throughout.",
+    "text": "1. Embed one simple phraseNomic uses task prefixes. clustering: asks for representations useful for grouping texts by common content. It does not run a clustering algorithm. We will use the same prefix throughout.\n\nimport ollamaMODEL = \"nomic-embed-text:v1.5\"phrase = \"Helping a neighbor through a difficult time.\"phrase_response = ollama.embed(    model=MODEL,    input=\"clustering: \" + phrase,    truncate=False,)"
+  },
+  {
+    "objectID": "demo_complete.html#inspect-what-came-backthe-response-contains-a-list-of-embeddings.-one-input-still-gives-an-outer-list-so-0-selects-its-vector.-inspect-a-few-values-before-doing-anything-else.",
+    "href": "demo_complete.html#inspect-what-came-backthe-response-contains-a-list-of-embeddings.-one-input-still-gives-an-outer-list-so-0-selects-its-vector.-inspect-a-few-values-before-doing-anything-else.",
+    "title": "Text EDA: completed demonstration",
+    "section": "2. Inspect what came backThe response contains a list of embeddings. One input still gives an outer list, so [0] selects its vector. Inspect a few values before doing anything else.",
+    "text": "2. Inspect what came backThe response contains a list of embeddings. One input still gives an outer list, so [0] selects its vector. Inspect a few values before doing anything else.\n\nprint(type(phrase_response))print(\"Number of returned embeddings:\", len(phrase_response[\"embeddings\"]))phrase_vector = phrase_response[\"embeddings\"][0]print(\"Vector length:\", len(phrase_vector))phrase_vector[:8]"
+  },
+  {
+    "objectID": "demo_complete.html#predict-then-repeat-the-same-callwhich-two-phrases-should-be-most-similar-what-might-happen-with-the-negated-sentence-predict-before-running.-the-model-supplies-a-learned-representation-it-may-not-handle-every-comparison-as-you-expect.",
+    "href": "demo_complete.html#predict-then-repeat-the-same-callwhich-two-phrases-should-be-most-similar-what-might-happen-with-the-negated-sentence-predict-before-running.-the-model-supplies-a-learned-representation-it-may-not-handle-every-comparison-as-you-expect.",
+    "title": "Text EDA: completed demonstration",
+    "section": "3. Predict, then repeat the same callWhich two phrases should be most similar? What might happen with the negated sentence? Predict before running. The model supplies a learned representation; it may not handle every comparison as you expect.",
+    "text": "3. Predict, then repeat the same callWhich two phrases should be most similar? What might happen with the negated sentence? Predict before running. The model supplies a learned representation; it may not handle every comparison as you expect.\n\nphrases = [    \"Helping a neighbor through a difficult time.\",    \"Offering support to someone facing hardship.\",    \"The train arrives at the station at noon.\",    \"Refusing to help a neighbor through a difficult time.\",]phrase_vectors = []for text in phrases:    response = ollama.embed(        model=MODEL,        input=\"clustering: \" + text,        truncate=False,    )    phrase_vectors.append(response[\"embeddings\"][0])"
+  },
+  {
+    "objectID": "demo_complete.html#connect-cosine-similarity-to-the-small-examplefor-u10-and-v11-the-dot-product-is-1-and-the-product-of-lengths-is-sqrt2.-the-result-should-be-about-0.707.-what-would-perpendicular-or-opposite-vectors-give",
+    "href": "demo_complete.html#connect-cosine-similarity-to-the-small-examplefor-u10-and-v11-the-dot-product-is-1-and-the-product-of-lengths-is-sqrt2.-the-result-should-be-about-0.707.-what-would-perpendicular-or-opposite-vectors-give",
+    "title": "Text EDA: completed demonstration",
+    "section": "4. Connect cosine similarity to the small exampleFor u=(1,0) and v=(1,1), the dot product is 1 and the product of lengths is sqrt(2). The result should be about 0.707. What would perpendicular or opposite vectors give?",
+    "text": "4. Connect cosine similarity to the small exampleFor u=(1,0) and v=(1,1), the dot product is 1 and the product of lengths is sqrt(2). The result should be about 0.707. What would perpendicular or opposite vectors give?\n\nimport numpy as npu = np.array([1, 0])v = np.array([1, 1])numerator = np.dot(u, v)denominator = np.linalg.norm(u) * np.linalg.norm(v)numerator / denominator\n\n0.7071067811865475"
+  },
+  {
+    "objectID": "demo_complete.html#compare-the-phrase-embeddingsuse-the-same-cosine-calculation-through-a-library-function.-it-works-across-all-the-coordinates-of-each-model-vector.-scores-are-not-probabilities-that-statements-have-identical-meaning.",
+    "href": "demo_complete.html#compare-the-phrase-embeddingsuse-the-same-cosine-calculation-through-a-library-function.-it-works-across-all-the-coordinates-of-each-model-vector.-scores-are-not-probabilities-that-statements-have-identical-meaning.",
+    "title": "Text EDA: completed demonstration",
+    "section": "5. Compare the phrase embeddingsUse the same cosine calculation through a library function. It works across all the coordinates of each model vector. Scores are not probabilities that statements have identical meaning.",
+    "text": "5. Compare the phrase embeddingsUse the same cosine calculation through a library function. It works across all the coordinates of each model vector. Scores are not probabilities that statements have identical meaning.\n\nimport pandas as pdfrom sklearn.metrics.pairwise import cosine_similarityphrase_matrix = np.array(phrase_vectors)print(\"Phrases by embedding features:\", phrase_matrix.shape)similarities = cosine_similarity(phrase_matrix)pd.DataFrame(similarities, index=range(1, 5), columns=range(1, 5)).round(3)\n\nPause: Which result agreed with your prediction? Which result needs a closer reading of the phrases?## 6. Look at one conference talkEach row represents a talk through its kicker, the highlighted message before its body. We use a small selected sample of 52 kickers from six conferences in 2020, 2023, and 2025. It is not a census or random sample. A kicker does not describe every theme in a full talk. Each row includes its official source URL.\n\ndf = pd.read_csv(\"data/talks.csv\")df[[\"title\", \"speaker\", \"year\", \"kicker\"]].head()\n\n\n\n\n\n\n\n\ntitle\nspeaker\nyear\nkicker\n\n\n\n\n0\nAn Especially Noble Calling\nJoy D. Jones\n2020\nAs women of faith, we can draw principles of t...\n\n\n1\nPrayers of Faith\nHenry B. Eyring\n2020\nAs we pray in faith, we become a vital part in...\n\n\n2\nThe Coming Forth of the Book of Mormon\nUlisses Soares\n2020\nThe historical facts and the special witnesses...\n\n\n3\nUnited in Accomplishing God’s Work\nJean B. Bingham\n2020\nThe most effective way to fulfill our divine p...\n\n\n4\nThat They May See\nBonnie H. Cordon\n2020\nLook and pray for opportunities to let your li...\n\n\n\n\n\n\n\n\ntalk = df.iloc[0]print(talk[\"title\"])print(talk[\"kicker\"])"
+  },
+  {
+    "objectID": "demo_complete.html#embed-that-one-kickerthis-is-the-same-operation-as-embedding-a-phrase.-titles-names-dates-and-recorded-roles-stay-out-of-the-model-input.",
+    "href": "demo_complete.html#embed-that-one-kickerthis-is-the-same-operation-as-embedding-a-phrase.-titles-names-dates-and-recorded-roles-stay-out-of-the-model-input.",
+    "title": "Text EDA: completed demonstration",
+    "section": "7. Embed that one kickerThis is the same operation as embedding a phrase. Titles, names, dates, and recorded roles stay out of the model input.",
+    "text": "7. Embed that one kickerThis is the same operation as embedding a phrase. Titles, names, dates, and recorded roles stay out of the model input.\n\ntalk_response = ollama.embed(    model=MODEL,    input=\"clustering: \" + talk[\"kicker\"],    truncate=False,)talk_vector = talk_response[\"embeddings\"][0]print(\"Vector length:\", len(talk_vector))talk_vector[:8]"
+  },
+  {
+    "objectID": "demo_complete.html#repeat-for-all-of-our-kickersa-plain-loop-makes-the-repeated-operation-visible.-we-keep-the-dataframe-order-so-every-vector-stays-attached-to-the-correct-talk.",
+    "href": "demo_complete.html#repeat-for-all-of-our-kickersa-plain-loop-makes-the-repeated-operation-visible.-we-keep-the-dataframe-order-so-every-vector-stays-attached-to-the-correct-talk.",
+    "title": "Text EDA: completed demonstration",
+    "section": "8. Repeat for all of our kickersA plain loop makes the repeated operation visible. We keep the DataFrame order so every vector stays attached to the correct talk.",
+    "text": "8. Repeat for all of our kickersA plain loop makes the repeated operation visible. We keep the DataFrame order so every vector stays attached to the correct talk.\n\ntalk_vectors = []for kicker in df[\"kicker\"]:    response = ollama.embed(        model=MODEL,        input=\"clustering: \" + kicker,        truncate=False,    )    talk_vectors.append(response[\"embeddings\"][0])print(\"Kickers embedded:\", len(talk_vectors))"
+  },
+  {
+    "objectID": "demo_complete.html#inspect-the-dataframe-with-its-new-columnwhat-does-one-cell-of-the-embedding-column-contain-is-this-table-an-effective-way-to-examine-relationships-among-the-talks",
+    "href": "demo_complete.html#inspect-the-dataframe-with-its-new-columnwhat-does-one-cell-of-the-embedding-column-contain-is-this-table-an-effective-way-to-examine-relationships-among-the-talks",
+    "title": "Text EDA: completed demonstration",
+    "section": "9. Inspect the DataFrame with its new columnWhat does one cell of the embedding column contain? Is this table an effective way to examine relationships among the talks?",
+    "text": "9. Inspect the DataFrame with its new columnWhat does one cell of the embedding column contain? Is this table an effective way to examine relationships among the talks?\n\ndf[\"embedding\"] = talk_vectorsdf[[\"title\", \"kicker\", \"embedding\"]].head()\n\nNext question: How could we visualize observations that each have hundreds of numerical features?## 10. Make the feature matrixStack the vectors into rows. The DataFrame has one column of lists; the feature matrix has one column for each embedding coordinate. Keep the model vectors on their original scale; z-scoring individual coordinates would change their geometry. Unlike named variables such as age and fare, these coordinates are learned together by the model.\n\nX = np.vstack(df[\"embedding\"])print(\"DataFrame shape:\", df.shape)print(\"Embedding matrix shape:\", X.shape)"
+  },
+  {
+    "objectID": "demo_complete.html#apply-phate-using-its-defaultsthe-familiar-fit_transform-pattern-now-receives-text-derived-features.-we-fix-only-the-random-seed-and-leave-the-other-settings-at-their-defaults.there-are-two-different-representations-here-each-model-embedding-has-hundreds-of-features-each-phate-point-has-two-plotting-coordinates.-phate-axes-do-not-have-topic-names-and-a-visible-gap-does-not-by-itself-establish-separate-groups.-use-the-map-to-choose-texts-to-inspect.",
+    "href": "demo_complete.html#apply-phate-using-its-defaultsthe-familiar-fit_transform-pattern-now-receives-text-derived-features.-we-fix-only-the-random-seed-and-leave-the-other-settings-at-their-defaults.there-are-two-different-representations-here-each-model-embedding-has-hundreds-of-features-each-phate-point-has-two-plotting-coordinates.-phate-axes-do-not-have-topic-names-and-a-visible-gap-does-not-by-itself-establish-separate-groups.-use-the-map-to-choose-texts-to-inspect.",
+    "title": "Text EDA: completed demonstration",
+    "section": "11. Apply PHATE using its defaultsThe familiar fit_transform pattern now receives text-derived features. We fix only the random seed and leave the other settings at their defaults.There are two different representations here: each model embedding has hundreds of features; each PHATE point has two plotting coordinates. PHATE axes do not have topic names, and a visible gap does not by itself establish separate groups. Use the map to choose texts to inspect.",
+    "text": "11. Apply PHATE using its defaultsThe familiar fit_transform pattern now receives text-derived features. We fix only the random seed and leave the other settings at their defaults.There are two different representations here: each model embedding has hundreds of features; each PHATE point has two plotting coordinates. PHATE axes do not have topic names, and a visible gap does not by itself establish separate groups. Use the map to choose texts to inspect.\n\nimport phatereducer = phate.PHATE(random_state=386)coordinates = reducer.fit_transform(X)print(\"Plotted coordinate matrix:\", coordinates.shape)\n\n\ndf[\"PHATE1\"] = coordinates[:, 0]df[\"PHATE2\"] = coordinates[:, 1]df[[\"title\", \"PHATE1\", \"PHATE2\"]].head()"
+  },
+  {
+    "objectID": "demo_complete.html#start-with-the-simplest-scatterplotone-point-is-one-kicker.-what-can-this-view-tell-us-what-is-still-missing-for-our-question",
+    "href": "demo_complete.html#start-with-the-simplest-scatterplotone-point-is-one-kicker.-what-can-this-view-tell-us-what-is-still-missing-for-our-question",
+    "title": "Text EDA: completed demonstration",
+    "section": "12. Start with the simplest scatterplotOne point is one kicker. What can this view tell us? What is still missing for our question?",
+    "text": "12. Start with the simplest scatterplotOne point is one kicker. What can this view tell us? What is still missing for our question?\n\nimport matplotlib.pyplot as pltplt.scatter(df[\"PHATE1\"], df[\"PHATE2\"])plt.xlabel(\"PHATE 1\")plt.ylabel(\"PHATE 2\")plt.show()"
+  },
+  {
+    "objectID": "demo_complete.html#add-one-layer-color-by-yeardo-messages-from-different-years-overlap-in-this-view-year-is-metadata-and-was-not-part-of-the-embedding-input.-describe-what-the-plot-suggests-then-consider-what-actual-kickers-you-would-need-to-read.",
+    "href": "demo_complete.html#add-one-layer-color-by-yeardo-messages-from-different-years-overlap-in-this-view-year-is-metadata-and-was-not-part-of-the-embedding-input.-describe-what-the-plot-suggests-then-consider-what-actual-kickers-you-would-need-to-read.",
+    "title": "Text EDA: completed demonstration",
+    "section": "13. Add one layer: color by yearDo messages from different years overlap in this view? Year is metadata and was not part of the embedding input. Describe what the plot suggests, then consider what actual kickers you would need to read.",
+    "text": "13. Add one layer: color by yearDo messages from different years overlap in this view? Year is metadata and was not part of the embedding input. Describe what the plot suggests, then consider what actual kickers you would need to read.\n\nplt.scatter(df[\"PHATE1\"], df[\"PHATE2\"], c=df[\"year\"])plt.colorbar(label=\"Conference year\")plt.xlabel(\"PHATE 1\")plt.ylabel(\"PHATE 2\")plt.show()"
+  },
+  {
+    "objectID": "demo_complete.html#make-the-same-view-interactivekeep-the-same-coordinates-and-year-colors.-plotly-adds-pan-zoom-and-hover.-at-first-the-hover-contains-mostly-coordinates-we-will-improve-it-next.",
+    "href": "demo_complete.html#make-the-same-view-interactivekeep-the-same-coordinates-and-year-colors.-plotly-adds-pan-zoom-and-hover.-at-first-the-hover-contains-mostly-coordinates-we-will-improve-it-next.",
+    "title": "Text EDA: completed demonstration",
+    "section": "14. Make the same view interactiveKeep the same coordinates and year colors. Plotly adds pan, zoom, and hover. At first, the hover contains mostly coordinates; we will improve it next.",
+    "text": "14. Make the same view interactiveKeep the same coordinates and year colors. Plotly adds pan, zoom, and hover. At first, the hover contains mostly coordinates; we will improve it next.\n\nimport plotly.express as pxfig = px.scatter(df, x=\"PHATE1\", y=\"PHATE2\", color=\"year\")fig.show()"
+  },
+  {
+    "objectID": "demo_complete.html#add-useful-hover-informationwhich-actual-messages-created-a-pattern-read-a-few-kickers-including-one-that-complicates-your-explanation.-use-the-source-url-in-df-if-you-need-to-inspect-the-full-talk.nearby-points-suggest-a-comparison-to-investigate.-read-their-messages-before-naming-a-theme-and-look-for-a-nearby-kicker-that-does-not-fit.-hovering-helps-connect-the-compressed-view-back-to-the-original-data.",
+    "href": "demo_complete.html#add-useful-hover-informationwhich-actual-messages-created-a-pattern-read-a-few-kickers-including-one-that-complicates-your-explanation.-use-the-source-url-in-df-if-you-need-to-inspect-the-full-talk.nearby-points-suggest-a-comparison-to-investigate.-read-their-messages-before-naming-a-theme-and-look-for-a-nearby-kicker-that-does-not-fit.-hovering-helps-connect-the-compressed-view-back-to-the-original-data.",
+    "title": "Text EDA: completed demonstration",
+    "section": "15. Add useful hover informationWhich actual messages created a pattern? Read a few kickers, including one that complicates your explanation. Use the source URL in df if you need to inspect the full talk.Nearby points suggest a comparison to investigate. Read their messages before naming a theme, and look for a nearby kicker that does not fit. Hovering helps connect the compressed view back to the original data.",
+    "text": "15. Add useful hover informationWhich actual messages created a pattern? Read a few kickers, including one that complicates your explanation. Use the source URL in df if you need to inspect the full talk.Nearby points suggest a comparison to investigate. Read their messages before naming a theme, and look for a nearby kicker that does not fit. Hovering helps connect the compressed view back to the original data.\n\nfig = px.scatter(    df, x=\"PHATE1\", y=\"PHATE2\", color=\"year\",    hover_name=\"title\",    hover_data=[\"speaker\", \"speaker_role\", \"kicker\"],)fig.show()"
+  },
+  {
+    "objectID": "demo_complete.html#ask-another-question-recorded-speaker-roleschange-only-the-color-variable.-do-nearby-messages-come-from-speakers-with-different-recorded-roles-read-their-kickers-to-support-the-interpretation.-the-roles-describe-the-source-talk-pages-not-current-positions.",
+    "href": "demo_complete.html#ask-another-question-recorded-speaker-roleschange-only-the-color-variable.-do-nearby-messages-come-from-speakers-with-different-recorded-roles-read-their-kickers-to-support-the-interpretation.-the-roles-describe-the-source-talk-pages-not-current-positions.",
+    "title": "Text EDA: completed demonstration",
+    "section": "16. Ask another question: recorded speaker rolesChange only the color variable. Do nearby messages come from speakers with different recorded roles? Read their kickers to support the interpretation. The roles describe the source talk pages, not current positions.",
+    "text": "16. Ask another question: recorded speaker rolesChange only the color variable. Do nearby messages come from speakers with different recorded roles? Read their kickers to support the interpretation. The roles describe the source talk pages, not current positions.\n\nfig = px.scatter(    df, x=\"PHATE1\", y=\"PHATE2\", color=\"role_group\",    hover_name=\"title\",    hover_data=[\"speaker\", \"speaker_role\", \"kicker\"],)fig.show()"
+  },
+  {
+    "objectID": "demo_complete.html#add-another-visual-channel-marker-shapedoes-conference-month-add-useful-information-to-the-role-comparison-add-symbol-without-changing-the-coordinates-or-role-colors.-in-this-table-4-means-april-and-10-means-october.-if-the-extra-encoding-does-not-help-the-question-leave-it-out.",
+    "href": "demo_complete.html#add-another-visual-channel-marker-shapedoes-conference-month-add-useful-information-to-the-role-comparison-add-symbol-without-changing-the-coordinates-or-role-colors.-in-this-table-4-means-april-and-10-means-october.-if-the-extra-encoding-does-not-help-the-question-leave-it-out.",
+    "title": "Text EDA: completed demonstration",
+    "section": "17. Add another visual channel: marker shapeDoes conference month add useful information to the role comparison? Add symbol without changing the coordinates or role colors. In this table, 4 means April and 10 means October. If the extra encoding does not help the question, leave it out.",
+    "text": "17. Add another visual channel: marker shapeDoes conference month add useful information to the role comparison? Add symbol without changing the coordinates or role colors. In this table, 4 means April and 10 means October. If the extra encoding does not help the question, leave it out.\n\nfull_map = px.scatter(    df, x=\"PHATE1\", y=\"PHATE2\", color=\"role_group\", symbol=\"month\",    hover_name=\"title\",    hover_data=[\"speaker\", \"speaker_role\", \"year\", \"kicker\"],)full_map.show()"
+  },
+  {
+    "objectID": "demo_complete.html#filter-the-displayed-talkssuppose-we-want-to-inspect-2023-and-later.-selecting-rows-keeps-their-existing-phate-coordinates.-no-model-or-dimensionality-reduction-method-is-refitted.to-inspect-one-speaker-instead-change-the-condition-to-for-example-keep-dfspeaker-russell-m.-nelson-then-rerun-the-filtering-and-plotting-cells.-this-displays-only-five-talks-in-this-sample-so-use-the-larger-year-subset-for-the-optional-refit-demonstration.",
+    "href": "demo_complete.html#filter-the-displayed-talkssuppose-we-want-to-inspect-2023-and-later.-selecting-rows-keeps-their-existing-phate-coordinates.-no-model-or-dimensionality-reduction-method-is-refitted.to-inspect-one-speaker-instead-change-the-condition-to-for-example-keep-dfspeaker-russell-m.-nelson-then-rerun-the-filtering-and-plotting-cells.-this-displays-only-five-talks-in-this-sample-so-use-the-larger-year-subset-for-the-optional-refit-demonstration.",
+    "title": "Text EDA: completed demonstration",
+    "section": "18. Filter the displayed talksSuppose we want to inspect 2023 and later. Selecting rows keeps their existing PHATE coordinates. No model or dimensionality reduction method is refitted.To inspect one speaker instead, change the condition to, for example, keep = df[\"speaker\"] == \"Russell M. Nelson\", then rerun the filtering and plotting cells. This displays only five talks in this sample, so use the larger year subset for the optional refit demonstration.",
+    "text": "18. Filter the displayed talksSuppose we want to inspect 2023 and later. Selecting rows keeps their existing PHATE coordinates. No model or dimensionality reduction method is refitted.To inspect one speaker instead, change the condition to, for example, keep = df[\"speaker\"] == \"Russell M. Nelson\", then rerun the filtering and plotting cells. This displays only five talks in this sample, so use the larger year subset for the optional refit demonstration.\n\nkeep = df[\"year\"] &gt;= 2023recent = df.loc[keep].copy()print(\"Displayed talks:\", len(recent), \"of\", len(df))recent[[\"title\", \"year\", \"PHATE1\", \"PHATE2\"]].head()\n\nKeep the original axis ranges and year scale so the filtered view uses the same visual reference frame. Otherwise automatic rescaling could make the same coordinates or years look different.\n\nfig = px.scatter(    recent, x=\"PHATE1\", y=\"PHATE2\", color=\"year\",    hover_name=\"title\", hover_data=[\"speaker\", \"kicker\"],    range_x=[df[\"PHATE1\"].min(), df[\"PHATE1\"].max()],    range_y=[df[\"PHATE2\"].min(), df[\"PHATE2\"].max()],    range_color=[df[\"year\"].min(), df[\"year\"].max()],)fig.show()\n\nInvestigate: Choose a question about the year or role comparisons. Read at least three kickers, identify a complication, and state one next check. The selected sample cannot establish historical trends across all talks.## 19. Extension: subset the vectors and refitFiltering asks where selected talks lie in the original map. Refitting asks for a new view of variation within that subset. These answer different questions. Start with a sufficiently large subset, such as our 2023-and-later records, rather than only two or three talks.\n\nrecent_vectors = X[keep.to_numpy()]recent_coordinates = phate.PHATE(random_state=386).fit_transform(recent_vectors)recent[\"PHATE1_refit\"] = recent_coordinates[:, 0]recent[\"PHATE2_refit\"] = recent_coordinates[:, 1]fig = px.scatter(    recent, x=\"PHATE1_refit\", y=\"PHATE2_refit\", color=\"year\",    hover_name=\"title\", hover_data=[\"speaker\", \"kicker\"],    range_color=[df[\"year\"].min(), df[\"year\"].max()],)fig.show()\n\nDiscuss: Which relationships seem to persist? The refitted map may rotate, reflect, rescale, and change shape. Its coordinates are not directly comparable with coordinates from the full fit. Check the actual texts and their original vectors rather than interpreting movement across maps as change in the talks.## Finish the discussion here- What question did the next plot help you answer?- Which kickers support your explanation, and which complicate it?- What did filtering do? What changed when we refitted?- What can the short kicker and selected sample leave out?State one finding using this pattern: **In this selected sample, we noticed ; the kickers  support this, while ___ complicates it. Our next check would be ___.** There is no need to return to the slides.## Optional: save the real vectors for laterAfter completing the demonstration, save a single file. Keep row identifiers and texts with the vectors so a later notebook can check their alignment. This is introduced after the visible embedding loop, not hidden inside it. The practice notebook can then work without a running Ollama model.\n\nnp.savez_compressed(    \"data/talk_embeddings.npz\",    embeddings=X,    talk_id=df[\"talk_id\"].to_numpy(dtype=str),    kicker=df[\"kicker\"].to_numpy(dtype=str),    model=np.array(MODEL),    prefix=np.array(\"clustering: \"),)\n\nTo reuse those vectors in a later session after loading the same CSV:pythonsaved = np.load(\"data/talk_embeddings.npz\", allow_pickle=False)assert saved[\"model\"].item() == MODELassert saved[\"prefix\"].item() == \"clustering: \"assert np.array_equal(saved[\"talk_id\"], df[\"talk_id\"].to_numpy(dtype=str))assert np.array_equal(saved[\"kicker\"], df[\"kicker\"].to_numpy(dtype=str))X = saved[\"embeddings\"]A different model, changed text, or a changed row order requires a matching set of vectors.\n## 20. Publish a Plotly figure inside a Quarto pageExport the full-data figure constructed before filtering. Its JavaScript is included, so it can be opened independently of Python or hosted on GitHub Pages. This figure supports hover, pan, zoom, and legend interaction; filtering remains ordinary pandas code in the notebook.\n\nfull_map.write_html(\"talk_map.html\", include_plotlyjs=True)\n\n\nEmbed the exported figure in your .qmd1. Run the export cell above. Keep talk_map.html next to index.qmd at the project root, rather than putting the only copy inside docs/.2. Paste the following into index.qmd (or another .qmd in the same folder):`markdown````3. This project already has the following entry under `project.resources` in `_quarto.yml`:yamlproject: resources: - talk_map*.htmlFor a different project, merge that resource entry into its existing `project` configuration. Do not replace the rest of its configuration. Quarto copies the exported HTML into the rendered website so the relative iframe URL also works on GitHub Pages.4. Save the files, then run from the project terminal:bashquarto preview``No Ollama request is made by previewing the page: the figure is already exported. After editing the plot, rerun its export cell and preview again. To publish, runquarto render, commit the updateddocs/, and use the repository's/docsGitHub Pages source.The homepage also includes a tiny three-point publishing example that works immediately without model inference. Once your real talk map exists, use the same iframe pattern withtalk_map.html`."
+  },
+  {
+    "objectID": "demo_complete.html#references--nomic-model-card-and-task-prefixes--ollama-embedding-api--phate-api--plotly-scatterplots-and-interactive-html-export--data-notes-and-source-urls--quarto-raw-html-and-project-resources",
+    "href": "demo_complete.html#references--nomic-model-card-and-task-prefixes--ollama-embedding-api--phate-api--plotly-scatterplots-and-interactive-html-export--data-notes-and-source-urls--quarto-raw-html-and-project-resources",
+    "title": "Text EDA: completed demonstration",
+    "section": "References- Nomic model card and task prefixes- Ollama embedding API- PHATE API- Plotly scatterplots and interactive HTML export- Data notes and source URLs- Quarto raw HTML and project resources",
+    "text": "References- Nomic model card and task prefixes- Ollama embedding API- PHATE API- Plotly scatterplots and interactive HTML export- Data notes and source URLs- Quarto raw HTML and project resources"
+  },
+  {
+    "objectID": "demo_live.html",
+    "href": "demo_live.html",
+    "title": "Text EDA: live coding",
+    "section": "",
+    "text": "Question: Which highlighted conference messages express similar ideas, and how do their years and recorded speaker roles relate to those patterns?\nWe will build one step at a time: a phrase, a kicker, all kickers, a feature matrix, PHATE coordinates, and progressively more informative plots.\nBefore class, run uv sync, start the Ollama application, and run ollama pull nomic-embed-text:v1.5. Open this project folder in Positron and choose its .venv notebook kernel. All file paths below are relative to that folder.\nThe embedding calls use your local Nomic model. Model results will appear when you run the notebook.\nTeaching route: Sections 1–18 build the main demonstration. Section 19 is an optional refit extension. Finish with the discussion, then use the save-vectors and Plotly publishing sections as needed.\nRun cells from top to bottom. In the live scaffold, complete each TODO before running the cells that use its result. To prepare student practice, run the save-vectors cell once and share data/talk_embeddings.npz with the project."
+  },
+  {
+    "objectID": "demo_live.html#embed-one-simple-phrasenomic-uses-task-prefixes.-clustering-asks-for-representations-useful-for-grouping-texts-by-common-content.-it-does-not-run-a-clustering-algorithm.-we-will-use-the-same-prefix-throughout.",
+    "href": "demo_live.html#embed-one-simple-phrasenomic-uses-task-prefixes.-clustering-asks-for-representations-useful-for-grouping-texts-by-common-content.-it-does-not-run-a-clustering-algorithm.-we-will-use-the-same-prefix-throughout.",
+    "title": "Text EDA: live coding",
+    "section": "1. Embed one simple phraseNomic uses task prefixes. clustering: asks for representations useful for grouping texts by common content. It does not run a clustering algorithm. We will use the same prefix throughout.",
+    "text": "1. Embed one simple phraseNomic uses task prefixes. clustering: asks for representations useful for grouping texts by common content. It does not run a clustering algorithm. We will use the same prefix throughout.\n\nimport ollamaMODEL = \"nomic-embed-text:v1.5\"phrase = \"Helping a neighbor through a difficult time.\"# TODO: Call ollama.embed with model=MODEL,# input=\"clustering: \" + phrase, and truncate=False.# Store the result as phrase_response."
+  },
+  {
+    "objectID": "demo_live.html#inspect-what-came-backthe-response-contains-a-list-of-embeddings.-one-input-still-gives-an-outer-list-so-0-selects-its-vector.-inspect-a-few-values-before-doing-anything-else.",
+    "href": "demo_live.html#inspect-what-came-backthe-response-contains-a-list-of-embeddings.-one-input-still-gives-an-outer-list-so-0-selects-its-vector.-inspect-a-few-values-before-doing-anything-else.",
+    "title": "Text EDA: live coding",
+    "section": "2. Inspect what came backThe response contains a list of embeddings. One input still gives an outer list, so [0] selects its vector. Inspect a few values before doing anything else.",
+    "text": "2. Inspect what came backThe response contains a list of embeddings. One input still gives an outer list, so [0] selects its vector. Inspect a few values before doing anything else.\n\nprint(type(phrase_response))print(\"Number of returned embeddings:\", len(phrase_response[\"embeddings\"]))phrase_vector = phrase_response[\"embeddings\"][0]print(\"Vector length:\", len(phrase_vector))phrase_vector[:8]"
+  },
+  {
+    "objectID": "demo_live.html#predict-then-repeat-the-same-callwhich-two-phrases-should-be-most-similar-what-might-happen-with-the-negated-sentence-predict-before-running.-the-model-supplies-a-learned-representation-it-may-not-handle-every-comparison-as-you-expect.",
+    "href": "demo_live.html#predict-then-repeat-the-same-callwhich-two-phrases-should-be-most-similar-what-might-happen-with-the-negated-sentence-predict-before-running.-the-model-supplies-a-learned-representation-it-may-not-handle-every-comparison-as-you-expect.",
+    "title": "Text EDA: live coding",
+    "section": "3. Predict, then repeat the same callWhich two phrases should be most similar? What might happen with the negated sentence? Predict before running. The model supplies a learned representation; it may not handle every comparison as you expect.",
+    "text": "3. Predict, then repeat the same callWhich two phrases should be most similar? What might happen with the negated sentence? Predict before running. The model supplies a learned representation; it may not handle every comparison as you expect.\n\nphrases = [    \"Helping a neighbor through a difficult time.\",    \"Offering support to someone facing hardship.\",    \"The train arrives at the station at noon.\",    \"Refusing to help a neighbor through a difficult time.\",]phrase_vectors = []# TODO: Loop over phrases. Repeat the same embedding call for each text.# Append each returned vector to phrase_vectors."
+  },
+  {
+    "objectID": "demo_live.html#connect-cosine-similarity-to-the-small-examplefor-u10-and-v11-the-dot-product-is-1-and-the-product-of-lengths-is-sqrt2.-the-result-should-be-about-0.707.-what-would-perpendicular-or-opposite-vectors-give",
+    "href": "demo_live.html#connect-cosine-similarity-to-the-small-examplefor-u10-and-v11-the-dot-product-is-1-and-the-product-of-lengths-is-sqrt2.-the-result-should-be-about-0.707.-what-would-perpendicular-or-opposite-vectors-give",
+    "title": "Text EDA: live coding",
+    "section": "4. Connect cosine similarity to the small exampleFor u=(1,0) and v=(1,1), the dot product is 1 and the product of lengths is sqrt(2). The result should be about 0.707. What would perpendicular or opposite vectors give?",
+    "text": "4. Connect cosine similarity to the small exampleFor u=(1,0) and v=(1,1), the dot product is 1 and the product of lengths is sqrt(2). The result should be about 0.707. What would perpendicular or opposite vectors give?\n\nimport numpy as npu = np.array([1, 0])v = np.array([1, 1])numerator = np.dot(u, v)denominator = np.linalg.norm(u) * np.linalg.norm(v)numerator / denominator"
+  },
+  {
+    "objectID": "demo_live.html#compare-the-phrase-embeddingsuse-the-same-cosine-calculation-through-a-library-function.-it-works-across-all-the-coordinates-of-each-model-vector.-scores-are-not-probabilities-that-statements-have-identical-meaning.",
+    "href": "demo_live.html#compare-the-phrase-embeddingsuse-the-same-cosine-calculation-through-a-library-function.-it-works-across-all-the-coordinates-of-each-model-vector.-scores-are-not-probabilities-that-statements-have-identical-meaning.",
+    "title": "Text EDA: live coding",
+    "section": "5. Compare the phrase embeddingsUse the same cosine calculation through a library function. It works across all the coordinates of each model vector. Scores are not probabilities that statements have identical meaning.",
+    "text": "5. Compare the phrase embeddingsUse the same cosine calculation through a library function. It works across all the coordinates of each model vector. Scores are not probabilities that statements have identical meaning.\n\nimport pandas as pdfrom sklearn.metrics.pairwise import cosine_similarityphrase_matrix = np.array(phrase_vectors)print(\"Phrases by embedding features:\", phrase_matrix.shape)similarities = cosine_similarity(phrase_matrix)pd.DataFrame(similarities, index=range(1, 5), columns=range(1, 5)).round(3)\n\nPause: Which result agreed with your prediction? Which result needs a closer reading of the phrases?## 6. Look at one conference talkEach row represents a talk through its kicker, the highlighted message before its body. We use a small selected sample of 52 kickers from six conferences in 2020, 2023, and 2025. It is not a census or random sample. A kicker does not describe every theme in a full talk. Each row includes its official source URL.\n\ndf = pd.read_csv(\"data/talks.csv\")df[[\"title\", \"speaker\", \"year\", \"kicker\"]].head()\n\n\ntalk = df.iloc[0]print(talk[\"title\"])print(talk[\"kicker\"])"
+  },
+  {
+    "objectID": "demo_live.html#embed-that-one-kickerthis-is-the-same-operation-as-embedding-a-phrase.-titles-names-dates-and-recorded-roles-stay-out-of-the-model-input.",
+    "href": "demo_live.html#embed-that-one-kickerthis-is-the-same-operation-as-embedding-a-phrase.-titles-names-dates-and-recorded-roles-stay-out-of-the-model-input.",
+    "title": "Text EDA: live coding",
+    "section": "7. Embed that one kickerThis is the same operation as embedding a phrase. Titles, names, dates, and recorded roles stay out of the model input.",
+    "text": "7. Embed that one kickerThis is the same operation as embedding a phrase. Titles, names, dates, and recorded roles stay out of the model input.\n\n# TODO: Embed talk[\"kicker\"] using the same model and prefix.# Store its returned vector as talk_vector.# Inspect its length and first few values."
+  },
+  {
+    "objectID": "demo_live.html#repeat-for-all-of-our-kickersa-plain-loop-makes-the-repeated-operation-visible.-we-keep-the-dataframe-order-so-every-vector-stays-attached-to-the-correct-talk.",
+    "href": "demo_live.html#repeat-for-all-of-our-kickersa-plain-loop-makes-the-repeated-operation-visible.-we-keep-the-dataframe-order-so-every-vector-stays-attached-to-the-correct-talk.",
+    "title": "Text EDA: live coding",
+    "section": "8. Repeat for all of our kickersA plain loop makes the repeated operation visible. We keep the DataFrame order so every vector stays attached to the correct talk.",
+    "text": "8. Repeat for all of our kickersA plain loop makes the repeated operation visible. We keep the DataFrame order so every vector stays attached to the correct talk.\n\ntalk_vectors = []# TODO: Loop over df[\"kicker\"], embed each text,# and append its vector to talk_vectors.print(\"Kickers embedded:\", len(talk_vectors))"
+  },
+  {
+    "objectID": "demo_live.html#inspect-the-dataframe-with-its-new-columnwhat-does-one-cell-of-the-embedding-column-contain-is-this-table-an-effective-way-to-examine-relationships-among-the-talks",
+    "href": "demo_live.html#inspect-the-dataframe-with-its-new-columnwhat-does-one-cell-of-the-embedding-column-contain-is-this-table-an-effective-way-to-examine-relationships-among-the-talks",
+    "title": "Text EDA: live coding",
+    "section": "9. Inspect the DataFrame with its new columnWhat does one cell of the embedding column contain? Is this table an effective way to examine relationships among the talks?",
+    "text": "9. Inspect the DataFrame with its new columnWhat does one cell of the embedding column contain? Is this table an effective way to examine relationships among the talks?\n\ndf[\"embedding\"] = talk_vectorsdf[[\"title\", \"kicker\", \"embedding\"]].head()\n\nNext question: How could we visualize observations that each have hundreds of numerical features?## 10. Make the feature matrixStack the vectors into rows. The DataFrame has one column of lists; the feature matrix has one column for each embedding coordinate. Keep the model vectors on their original scale; z-scoring individual coordinates would change their geometry. Unlike named variables such as age and fare, these coordinates are learned together by the model.\n\n# TODO: Stack the embedding vectors into a matrix named X.# Inspect X.shape and compare it with df.shape."
+  },
+  {
+    "objectID": "demo_live.html#apply-phate-using-its-defaultsthe-familiar-fit_transform-pattern-now-receives-text-derived-features.-we-fix-only-the-random-seed-and-leave-the-other-settings-at-their-defaults.there-are-two-different-representations-here-each-model-embedding-has-hundreds-of-features-each-phate-point-has-two-plotting-coordinates.-phate-axes-do-not-have-topic-names-and-a-visible-gap-does-not-by-itself-establish-separate-groups.-use-the-map-to-choose-texts-to-inspect.",
+    "href": "demo_live.html#apply-phate-using-its-defaultsthe-familiar-fit_transform-pattern-now-receives-text-derived-features.-we-fix-only-the-random-seed-and-leave-the-other-settings-at-their-defaults.there-are-two-different-representations-here-each-model-embedding-has-hundreds-of-features-each-phate-point-has-two-plotting-coordinates.-phate-axes-do-not-have-topic-names-and-a-visible-gap-does-not-by-itself-establish-separate-groups.-use-the-map-to-choose-texts-to-inspect.",
+    "title": "Text EDA: live coding",
+    "section": "11. Apply PHATE using its defaultsThe familiar fit_transform pattern now receives text-derived features. We fix only the random seed and leave the other settings at their defaults.There are two different representations here: each model embedding has hundreds of features; each PHATE point has two plotting coordinates. PHATE axes do not have topic names, and a visible gap does not by itself establish separate groups. Use the map to choose texts to inspect.",
+    "text": "11. Apply PHATE using its defaultsThe familiar fit_transform pattern now receives text-derived features. We fix only the random seed and leave the other settings at their defaults.There are two different representations here: each model embedding has hundreds of features; each PHATE point has two plotting coordinates. PHATE axes do not have topic names, and a visible gap does not by itself establish separate groups. Use the map to choose texts to inspect.\n\nimport phate# TODO: Create phate.PHATE(random_state=386), then fit_transform(X).# Store the two-dimensional result as coordinates.\n\n\ndf[\"PHATE1\"] = coordinates[:, 0]df[\"PHATE2\"] = coordinates[:, 1]df[[\"title\", \"PHATE1\", \"PHATE2\"]].head()"
+  },
+  {
+    "objectID": "demo_live.html#start-with-the-simplest-scatterplotone-point-is-one-kicker.-what-can-this-view-tell-us-what-is-still-missing-for-our-question",
+    "href": "demo_live.html#start-with-the-simplest-scatterplotone-point-is-one-kicker.-what-can-this-view-tell-us-what-is-still-missing-for-our-question",
+    "title": "Text EDA: live coding",
+    "section": "12. Start with the simplest scatterplotOne point is one kicker. What can this view tell us? What is still missing for our question?",
+    "text": "12. Start with the simplest scatterplotOne point is one kicker. What can this view tell us? What is still missing for our question?\n\nimport matplotlib.pyplot as plt# TODO: Make a basic scatterplot of PHATE1 and PHATE2.# Label the axes and show the plot."
+  },
+  {
+    "objectID": "demo_live.html#add-one-layer-color-by-yeardo-messages-from-different-years-overlap-in-this-view-year-is-metadata-and-was-not-part-of-the-embedding-input.-describe-what-the-plot-suggests-then-consider-what-actual-kickers-you-would-need-to-read.",
+    "href": "demo_live.html#add-one-layer-color-by-yeardo-messages-from-different-years-overlap-in-this-view-year-is-metadata-and-was-not-part-of-the-embedding-input.-describe-what-the-plot-suggests-then-consider-what-actual-kickers-you-would-need-to-read.",
+    "title": "Text EDA: live coding",
+    "section": "13. Add one layer: color by yearDo messages from different years overlap in this view? Year is metadata and was not part of the embedding input. Describe what the plot suggests, then consider what actual kickers you would need to read.",
+    "text": "13. Add one layer: color by yearDo messages from different years overlap in this view? Year is metadata and was not part of the embedding input. Describe what the plot suggests, then consider what actual kickers you would need to read.\n\nplt.scatter(df[\"PHATE1\"], df[\"PHATE2\"], c=df[\"year\"])plt.colorbar(label=\"Conference year\")plt.xlabel(\"PHATE 1\")plt.ylabel(\"PHATE 2\")plt.show()"
+  },
+  {
+    "objectID": "demo_live.html#make-the-same-view-interactivekeep-the-same-coordinates-and-year-colors.-plotly-adds-pan-zoom-and-hover.-at-first-the-hover-contains-mostly-coordinates-we-will-improve-it-next.",
+    "href": "demo_live.html#make-the-same-view-interactivekeep-the-same-coordinates-and-year-colors.-plotly-adds-pan-zoom-and-hover.-at-first-the-hover-contains-mostly-coordinates-we-will-improve-it-next.",
+    "title": "Text EDA: live coding",
+    "section": "14. Make the same view interactiveKeep the same coordinates and year colors. Plotly adds pan, zoom, and hover. At first, the hover contains mostly coordinates; we will improve it next.",
+    "text": "14. Make the same view interactiveKeep the same coordinates and year colors. Plotly adds pan, zoom, and hover. At first, the hover contains mostly coordinates; we will improve it next.\n\nimport plotly.express as pxfig = px.scatter(df, x=\"PHATE1\", y=\"PHATE2\", color=\"year\")fig.show()"
+  },
+  {
+    "objectID": "demo_live.html#add-useful-hover-informationwhich-actual-messages-created-a-pattern-read-a-few-kickers-including-one-that-complicates-your-explanation.-use-the-source-url-in-df-if-you-need-to-inspect-the-full-talk.nearby-points-suggest-a-comparison-to-investigate.-read-their-messages-before-naming-a-theme-and-look-for-a-nearby-kicker-that-does-not-fit.-hovering-helps-connect-the-compressed-view-back-to-the-original-data.",
+    "href": "demo_live.html#add-useful-hover-informationwhich-actual-messages-created-a-pattern-read-a-few-kickers-including-one-that-complicates-your-explanation.-use-the-source-url-in-df-if-you-need-to-inspect-the-full-talk.nearby-points-suggest-a-comparison-to-investigate.-read-their-messages-before-naming-a-theme-and-look-for-a-nearby-kicker-that-does-not-fit.-hovering-helps-connect-the-compressed-view-back-to-the-original-data.",
+    "title": "Text EDA: live coding",
+    "section": "15. Add useful hover informationWhich actual messages created a pattern? Read a few kickers, including one that complicates your explanation. Use the source URL in df if you need to inspect the full talk.Nearby points suggest a comparison to investigate. Read their messages before naming a theme, and look for a nearby kicker that does not fit. Hovering helps connect the compressed view back to the original data.",
+    "text": "15. Add useful hover informationWhich actual messages created a pattern? Read a few kickers, including one that complicates your explanation. Use the source URL in df if you need to inspect the full talk.Nearby points suggest a comparison to investigate. Read their messages before naming a theme, and look for a nearby kicker that does not fit. Hovering helps connect the compressed view back to the original data.\n\n# TODO: Repeat the previous Plotly call.# Add hover_name=\"title\" and useful hover_data, including the kicker."
+  },
+  {
+    "objectID": "demo_live.html#ask-another-question-recorded-speaker-roleschange-only-the-color-variable.-do-nearby-messages-come-from-speakers-with-different-recorded-roles-read-their-kickers-to-support-the-interpretation.-the-roles-describe-the-source-talk-pages-not-current-positions.",
+    "href": "demo_live.html#ask-another-question-recorded-speaker-roleschange-only-the-color-variable.-do-nearby-messages-come-from-speakers-with-different-recorded-roles-read-their-kickers-to-support-the-interpretation.-the-roles-describe-the-source-talk-pages-not-current-positions.",
+    "title": "Text EDA: live coding",
+    "section": "16. Ask another question: recorded speaker rolesChange only the color variable. Do nearby messages come from speakers with different recorded roles? Read their kickers to support the interpretation. The roles describe the source talk pages, not current positions.",
+    "text": "16. Ask another question: recorded speaker rolesChange only the color variable. Do nearby messages come from speakers with different recorded roles? Read their kickers to support the interpretation. The roles describe the source talk pages, not current positions.\n\nfig = px.scatter(    df, x=\"PHATE1\", y=\"PHATE2\", color=\"role_group\",    hover_name=\"title\",    hover_data=[\"speaker\", \"speaker_role\", \"kicker\"],)fig.show()"
+  },
+  {
+    "objectID": "demo_live.html#add-another-visual-channel-marker-shapedoes-conference-month-add-useful-information-to-the-role-comparison-add-symbol-without-changing-the-coordinates-or-role-colors.-in-this-table-4-means-april-and-10-means-october.-if-the-extra-encoding-does-not-help-the-question-leave-it-out.",
+    "href": "demo_live.html#add-another-visual-channel-marker-shapedoes-conference-month-add-useful-information-to-the-role-comparison-add-symbol-without-changing-the-coordinates-or-role-colors.-in-this-table-4-means-april-and-10-means-october.-if-the-extra-encoding-does-not-help-the-question-leave-it-out.",
+    "title": "Text EDA: live coding",
+    "section": "17. Add another visual channel: marker shapeDoes conference month add useful information to the role comparison? Add symbol without changing the coordinates or role colors. In this table, 4 means April and 10 means October. If the extra encoding does not help the question, leave it out.",
+    "text": "17. Add another visual channel: marker shapeDoes conference month add useful information to the role comparison? Add symbol without changing the coordinates or role colors. In this table, 4 means April and 10 means October. If the extra encoding does not help the question, leave it out.\n\nfull_map = px.scatter(    df, x=\"PHATE1\", y=\"PHATE2\", color=\"role_group\", symbol=\"month\",    hover_name=\"title\",    hover_data=[\"speaker\", \"speaker_role\", \"year\", \"kicker\"],)full_map.show()"
+  },
+  {
+    "objectID": "demo_live.html#filter-the-displayed-talkssuppose-we-want-to-inspect-2023-and-later.-selecting-rows-keeps-their-existing-phate-coordinates.-no-model-or-dimensionality-reduction-method-is-refitted.to-inspect-one-speaker-instead-change-the-condition-to-for-example-keep-dfspeaker-russell-m.-nelson-then-rerun-the-filtering-and-plotting-cells.-this-displays-only-five-talks-in-this-sample-so-use-the-larger-year-subset-for-the-optional-refit-demonstration.",
+    "href": "demo_live.html#filter-the-displayed-talkssuppose-we-want-to-inspect-2023-and-later.-selecting-rows-keeps-their-existing-phate-coordinates.-no-model-or-dimensionality-reduction-method-is-refitted.to-inspect-one-speaker-instead-change-the-condition-to-for-example-keep-dfspeaker-russell-m.-nelson-then-rerun-the-filtering-and-plotting-cells.-this-displays-only-five-talks-in-this-sample-so-use-the-larger-year-subset-for-the-optional-refit-demonstration.",
+    "title": "Text EDA: live coding",
+    "section": "18. Filter the displayed talksSuppose we want to inspect 2023 and later. Selecting rows keeps their existing PHATE coordinates. No model or dimensionality reduction method is refitted.To inspect one speaker instead, change the condition to, for example, keep = df[\"speaker\"] == \"Russell M. Nelson\", then rerun the filtering and plotting cells. This displays only five talks in this sample, so use the larger year subset for the optional refit demonstration.",
+    "text": "18. Filter the displayed talksSuppose we want to inspect 2023 and later. Selecting rows keeps their existing PHATE coordinates. No model or dimensionality reduction method is refitted.To inspect one speaker instead, change the condition to, for example, keep = df[\"speaker\"] == \"Russell M. Nelson\", then rerun the filtering and plotting cells. This displays only five talks in this sample, so use the larger year subset for the optional refit demonstration.\n\nkeep = df[\"year\"] &gt;= 2023recent = df.loc[keep].copy()print(\"Displayed talks:\", len(recent), \"of\", len(df))recent[[\"title\", \"year\", \"PHATE1\", \"PHATE2\"]].head()\n\nKeep the original axis ranges and year scale so the filtered view uses the same visual reference frame. Otherwise automatic rescaling could make the same coordinates or years look different.\n\nfig = px.scatter(    recent, x=\"PHATE1\", y=\"PHATE2\", color=\"year\",    hover_name=\"title\", hover_data=[\"speaker\", \"kicker\"],    range_x=[df[\"PHATE1\"].min(), df[\"PHATE1\"].max()],    range_y=[df[\"PHATE2\"].min(), df[\"PHATE2\"].max()],    range_color=[df[\"year\"].min(), df[\"year\"].max()],)fig.show()\n\nInvestigate: Choose a question about the year or role comparisons. Read at least three kickers, identify a complication, and state one next check. The selected sample cannot establish historical trends across all talks.## 19. Extension: subset the vectors and refitFiltering asks where selected talks lie in the original map. Refitting asks for a new view of variation within that subset. These answer different questions. Start with a sufficiently large subset, such as our 2023-and-later records, rather than only two or three talks.\n\n# TODO: Subset X using keep.to_numpy().# Fit a new PHATE instance on those vectors.# Store and plot the new coordinates, keeping the old coordinates too.\n\nDiscuss: Which relationships seem to persist? The refitted map may rotate, reflect, rescale, and change shape. Its coordinates are not directly comparable with coordinates from the full fit. Check the actual texts and their original vectors rather than interpreting movement across maps as change in the talks.## Finish the discussion here- What question did the next plot help you answer?- Which kickers support your explanation, and which complicate it?- What did filtering do? What changed when we refitted?- What can the short kicker and selected sample leave out?State one finding using this pattern: **In this selected sample, we noticed ; the kickers  support this, while ___ complicates it. Our next check would be ___.** There is no need to return to the slides.## Optional: save the real vectors for laterAfter completing the demonstration, save a single file. Keep row identifiers and texts with the vectors so a later notebook can check their alignment. This is introduced after the visible embedding loop, not hidden inside it. The practice notebook can then work without a running Ollama model.\n\nnp.savez_compressed(    \"data/talk_embeddings.npz\",    embeddings=X,    talk_id=df[\"talk_id\"].to_numpy(dtype=str),    kicker=df[\"kicker\"].to_numpy(dtype=str),    model=np.array(MODEL),    prefix=np.array(\"clustering: \"),)\n\nTo reuse those vectors in a later session after loading the same CSV:pythonsaved = np.load(\"data/talk_embeddings.npz\", allow_pickle=False)assert saved[\"model\"].item() == MODELassert saved[\"prefix\"].item() == \"clustering: \"assert np.array_equal(saved[\"talk_id\"], df[\"talk_id\"].to_numpy(dtype=str))assert np.array_equal(saved[\"kicker\"], df[\"kicker\"].to_numpy(dtype=str))X = saved[\"embeddings\"]A different model, changed text, or a changed row order requires a matching set of vectors.\n## 20. Publish a Plotly figure inside a Quarto pageExport the full-data figure constructed before filtering. Its JavaScript is included, so it can be opened independently of Python or hosted on GitHub Pages. This figure supports hover, pan, zoom, and legend interaction; filtering remains ordinary pandas code in the notebook.\n\nfull_map.write_html(\"talk_map.html\", include_plotlyjs=True)\n\n\nEmbed the exported figure in your .qmd1. Run the export cell above. Keep talk_map.html next to index.qmd at the project root, rather than putting the only copy inside docs/.2. Paste the following into index.qmd (or another .qmd in the same folder):`markdown````3. This project already has the following entry under `project.resources` in `_quarto.yml`:yamlproject: resources: - talk_map*.htmlFor a different project, merge that resource entry into its existing `project` configuration. Do not replace the rest of its configuration. Quarto copies the exported HTML into the rendered website so the relative iframe URL also works on GitHub Pages.4. Save the files, then run from the project terminal:bashquarto preview``No Ollama request is made by previewing the page: the figure is already exported. After editing the plot, rerun its export cell and preview again. To publish, runquarto render, commit the updateddocs/, and use the repository's/docsGitHub Pages source.The homepage also includes a tiny three-point publishing example that works immediately without model inference. Once your real talk map exists, use the same iframe pattern withtalk_map.html`."
+  },
+  {
+    "objectID": "demo_live.html#references--nomic-model-card-and-task-prefixes--ollama-embedding-api--phate-api--plotly-scatterplots-and-interactive-html-export--data-notes-and-source-urls--quarto-raw-html-and-project-resources",
+    "href": "demo_live.html#references--nomic-model-card-and-task-prefixes--ollama-embedding-api--phate-api--plotly-scatterplots-and-interactive-html-export--data-notes-and-source-urls--quarto-raw-html-and-project-resources",
+    "title": "Text EDA: live coding",
+    "section": "References- Nomic model card and task prefixes- Ollama embedding API- PHATE API- Plotly scatterplots and interactive HTML export- Data notes and source URLs- Quarto raw HTML and project resources",
+    "text": "References- Nomic model card and task prefixes- Ollama embedding API- PHATE API- Plotly scatterplots and interactive HTML export- Data notes and source URLs- Quarto raw HTML and project resources"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Exploring Text with Embeddings",
+    "section": "",
+    "text": "Use a pretrained Nomic embedding model to turn text into vectors. Apply PHATE, then add one plotting feature at a time to investigate a question."
+  },
+  {
+    "objectID": "index.html#open-these-in-order",
+    "href": "index.html#open-these-in-order",
+    "title": "Exploring Text with Embeddings",
+    "section": "Open these in order",
+    "text": "Open these in order\n\nSlides: EDA review, the text problem, embeddings, cosine similarity, local/cloud models, Ollama, and Nomic.\nCompleted demonstration or live scaffold: the full coding progression in Positron.\nPractice: a separate place for student questions and investigation.\n\nThe slides end at the notebook handoff. Plotting, filtering versus refitting, and the closing discussion stay in the demonstration notebook.\n\nDownload completed notebook · Download live scaffold · Download practice notebook"
+  },
+  {
+    "objectID": "index.html#before-using-the-model",
+    "href": "index.html#before-using-the-model",
+    "title": "Exploring Text with Embeddings",
+    "section": "Before using the model",
+    "text": "Before using the model\nOpen the project folder in Positron and run:\nuv sync\nollama pull nomic-embed-text:v1.5\nInstall and start the Ollama application separately. Select this project’s .venv Python interpreter as the notebook kernel. Run the completed notebook once before class.\nThe notebook previews show the code and elementary examples. Run the notebook with local Ollama to produce the Nomic vectors and talk maps. For student practice without Ollama, the instructor can share the data/talk_embeddings.npz file created by the demonstration."
+  },
+  {
+    "objectID": "index.html#what-the-code-builds",
+    "href": "index.html#what-the-code-builds",
+    "title": "Exploring Text with Embeddings",
+    "section": "What the code builds",
+    "text": "What the code builds\nOne phrase → several phrases → one kicker → all kickers → an embedding matrix → PHATE coordinates → a basic scatterplot → color → interactive hover → marker shapes → filtering → an optional subset-and-refit extension.\nRead the data notes for source links, fields, and sampling limits. The optional closing sections save the real embeddings for reuse and show exactly how to embed a Plotly HTML figure in a Quarto page."
+  },
+  {
+    "objectID": "index.html#main-references",
+    "href": "index.html#main-references",
+    "title": "Exploring Text with Embeddings",
+    "section": "Main references",
+    "text": "Main references\n\nNomic model card and task prefixes\nNomic model in Ollama\nOllama embedding API\nPHATE API\nReimers and Gurevych (2019), Sentence-BERT, source for the simplified sentence-encoder illustration."
+  },
+  {
+    "objectID": "index.html#put-a-plotly-figure-on-your-quarto-website",
+    "href": "index.html#put-a-plotly-figure-on-your-quarto-website",
+    "title": "Exploring Text with Embeddings",
+    "section": "Put a Plotly figure on your Quarto website",
+    "text": "Put a Plotly figure on your Quarto website\nThis tiny example works without Ollama. The exported example is included here so the iframe below also works immediately when you run quarto preview.\n1. Generate the HTML from Python, for example in a notebook opened at the project root:\nimport plotly.express as px\n\nexample = px.scatter(x=[1, 2, 3], y=[1, 4, 9])\nexample.write_html(\"example_plot.html\", include_plotlyjs=True)\nThese are three illustrative numbers, not talk embeddings. Including Plotly’s JavaScript makes the exported figure self-contained.\n2. Paste this into your .qmd page, with the exported file in the same folder:\n```{=html}\n&lt;iframe src=\"example_plot.html\" width=\"100%\" height=\"450\"\n        style=\"border: 0;\" title=\"Small Plotly publishing example\"&gt;&lt;/iframe&gt;\n```\n3. Keep the file as a project resource. This project’s _quarto.yml already includes the following entries. In another project, merge them into its existing resource list:\nproject:\n  resources:\n    - example_plot.html\n    - talk_map*.html\nThen save the files and run quarto preview from the project terminal. For publication, run quarto render and commit the resulting docs/ folder. Use a relative URL such as example_plot.html; do not use docs/example_plot.html inside the page.\nWorking result:\n\nFor the real talk map, run the completed notebook’s full_map.write_html(\"talk_map.html\", include_plotlyjs=True) cell, then replace the filename in the iframe with talk_map.html. Keep that exported file at the project root; Quarto will copy it into docs/."
+  },
+  {
+    "objectID": "slides.html#why-do-we-do-eda",
+    "href": "slides.html#why-do-we-do-eda",
+    "title": "From Text to Exploratory Plots",
+    "section": "Why do we do EDA?",
+    "text": "Why do we do EDA?\nWe explore data to understand what it contains, investigate questions, and discover what to examine next.\nThink of the Titanic or tornado investigation:\nWhat did a useful new plot help you notice or ask?\n\n0:00-1:30 including title. Take one or two short contributions. Examples: compare proportions rather than counts, reveal a relationship, identify an unusual observation, or check an explanation. Emphasize that a question guides the next operation and the result can change the question. This is a bridge from the earlier work, not an isolated quiz about embedding interpretation."
+  },
+  {
+    "objectID": "slides.html#why-did-dimensionality-reduction-help",
+    "href": "slides.html#why-did-dimensionality-reduction-help",
+    "title": "From Text to Exploratory Plots",
+    "section": "Why did dimensionality reduction help?",
+    "text": "Why did dimensionality reduction help?\nOne observation can have many numerical features.\nDimensionality reduction gives us a small number of coordinates for a view of those observations.\nColor and the original data help us interpret the view.\nWhat information might a two-dimensional view leave out?\n\n1:30-2:30. Recall how a passenger’s many prepared features became two plotted coordinates. A map compresses information, so we still investigate original observations. Keep this review conceptual; the focus today is applying the familiar workflow to text. Students should recognize the familiar role of a feature matrix."
+  },
+  {
+    "objectID": "slides.html#what-if-an-observation-is-a-piece-of-text",
+    "href": "slides.html#what-if-an-observation-is-a-piece-of-text",
+    "title": "From Text to Exploratory Plots",
+    "section": "What if an observation is a piece of text?",
+    "text": "What if an observation is a piece of text?\n“Helping a neighbor through a difficult time.”\nWe can read the words, but what numbers should describe the observation?\nWe want to investigate which messages express related ideas, even when their wording differs.\n\n2:30-3:30. Ask for one idea, such as word counts or word indicators, but do not start another text-processing lesson. Motivate a learned representation as one option. The same EDA question now needs a different way to construct features."
+  },
+  {
+    "objectID": "slides.html#a-model-turns-text-into-a-vector",
+    "href": "slides.html#a-model-turns-text-into-a-vector",
+    "title": "From Text to Exploratory Plots",
+    "section": "A model turns text into a vector",
+    "text": "A model turns text into a vector\n\nTwo phrases pass through the same text encoder and become fixed-length vectors. Numerical entries are illustrative.Related texts can have similar vectors. Individual coordinates usually do not have convenient topic names.\n\nSimplified redraw of Reimers & Gurevych (2019), Sentence-BERT, Fig. 2: paper, CC BY-SA 4.0. Architecture details omitted; this is not Nomic’s exact architecture.\n\n\n3:30-5:00. One input string becomes one fixed-length vector. The model has been trained previously; we are applying it rather than training it in class. The two uses of the encoder share the same trained model. The illustrative numbers help show the type and shape of the output, not an actual model result. Explain that an embedding is a representation, not a generated prose answer and not a list of named topics. The redraw removes SBERT-specific architecture details and the similarity-computation node to focus on text-to-vector conversion."
+  },
+  {
+    "objectID": "slides.html#predict-before-computing",
+    "href": "slides.html#predict-before-computing",
+    "title": "From Text to Exploratory Plots",
+    "section": "Predict before computing",
+    "text": "Predict before computing\n\nHelping a neighbor through a difficult time.\nOffering support to someone facing hardship.\nThe train arrives at the station at noon.\nRefusing to help a neighbor through a difficult time.\n\nWhich pair should be most similar? Which comparison might challenge the model?\n\n5:00-6:30. Give students a short partner discussion. Sentences 1 and 2 express related ideas with different words; sentence 4 tests negation despite shared wording. Do not promise a particular model score or ranking. The notebook later computes actual Nomic results so we can compare the prediction with the evidence."
+  },
+  {
+    "objectID": "slides.html#comparing-two-vectors",
+    "href": "slides.html#comparing-two-vectors",
+    "title": "From Text to Exploratory Plots",
+    "section": "Comparing two vectors",
+    "text": "Comparing two vectors\nCosine similarity compares their directions:\n\\[\n\\operatorname{cosine}(u,v)=\\frac{u^\\top v}{\\|u\\|_2\\|v\\|_2}\n\\]\nSame direction: 1. Perpendicular: 0. Opposite directions: -1.\nThe score is a comparison under this representation, not a probability of identical meaning.\n\n6:30-7:30. The formula requires nonzero vectors. Connect the dot product and vector norm to linear algebra. We will use a familiar two-coordinate example before considering hundreds of coordinates. A high score cannot by itself establish that two statements make the same claim, especially with negation."
+  },
+  {
+    "objectID": "slides.html#a-two-dimensional-example",
+    "href": "slides.html#a-two-dimensional-example",
+    "title": "From Text to Exploratory Plots",
+    "section": "A two-dimensional example",
+    "text": "A two-dimensional example\n\nArrows u=(1,0), v=(1,1), and w=(0,1) show an angle of 45 degrees between u and v.\\[\n\\operatorname{cosine}((1,0),(1,1))=\\frac{1}{\\sqrt{2}}\\approx0.707\n\\]\nWhat is the similarity between u and w?\n\n7:30-9:30. Work the numerator 11+01=1 and lengths 1 and sqrt(2). The second answer is 0. Ask what would happen for (-1,0), giving -1. These are deliberately simple geometric vectors, not a projection of Nomic features. The completed notebook includes the same calculation with NumPy, so students can inspect every operation."
+  },
+  {
+    "objectID": "slides.html#where-does-the-model-run",
+    "href": "slides.html#where-does-the-model-run",
+    "title": "From Text to Exploratory Plots",
+    "section": "Where does the model run?",
+    "text": "Where does the model run?\n\nA cloud request reaches a provider’s model, while a local request reaches Ollama and a downloaded model on the same computer.Cloud services supply the computing hardware. Local use requires a downloaded model and suitable hardware on your computer.\n\n9:30-11:00. Students have mostly encountered cloud models. Both approaches can be called from Python. In this lesson a cloud request crosses the computer boundary; the local request goes to a service on the same computer. Avoid claiming that all cloud systems or all local systems have identical privacy/performance properties. After the initial download, this lesson’s local inference uses the downloaded model. Ollama also has cloud features; we are demonstrating its local path. Source: https://docs.ollama.com/faq."
+  },
+  {
+    "objectID": "slides.html#ollama-runs-the-model-for-us",
+    "href": "slides.html#ollama-runs-the-model-for-us",
+    "title": "From Text to Exploratory Plots",
+    "section": "Ollama runs the model for us",
+    "text": "Ollama runs the model for us\n\nOllama application: downloads and runs models.\nNomic model: supplies the learned text-to-vector transformation.\nPython package: lets our notebook request embeddings.\n\nInstall the application, start it, and download the model before class. Installing the Python package alone does not start the application.\n\n11:00-12:00. Connect the local service to the earlier client/server and API material. The notebook is the client. The Ollama application serves requests, normally on localhost:11434. No cloud API key is needed for this downloaded model. Students should distinguish the serving tool from the trained model and its Python interface. Source: Ollama documentation."
+  },
+  {
+    "objectID": "slides.html#our-model-nomic-embed-textv1.5",
+    "href": "slides.html#our-model-nomic-embed-textv1.5",
+    "title": "From Text to Exploratory Plots",
+    "section": "Our model: nomic-embed-text:v1.5",
+    "text": "Our model: nomic-embed-text:v1.5\nA pretrained text embedding model available through Ollama.\n\nReturns a numerical vector rather than a chat response.\nNormally produces 768 values per input; inspect the actual result.\nUses a task prefix. We will consistently use clustering: for grouping similar messages.\n\n\nNomic model card · Ollama model\n\n\n12:00-13:00. The prefix is part of the input convention documented by Nomic; it does not perform a clustering analysis. Use the same model and prefix for phrases and kickers. Distinguish model embedding dimensions from the later two-dimensional visualization. Avoid a long model benchmark comparison or architecture discussion."
+  },
+  {
+    "objectID": "slides.html#ask-for-an-embedding",
+    "href": "slides.html#ask-for-an-embedding",
+    "title": "From Text to Exploratory Plots",
+    "section": "Ask for an embedding",
+    "text": "Ask for an embedding\nimport ollama\n\nresponse = ollama.embed(\n    model=\"nomic-embed-text:v1.5\",\n    input=\"clustering: Helping a neighbor.\",\n    truncate=False,\n)\nvector = response[\"embeddings\"][0]\nWe will inspect the response, the vector length, and a few values before doing anything more complicated.\n\n13:00-14:00. The endpoint can return several embeddings, so a single input still gives an outer list; [0] selects its first vector. truncate=False makes overlong inputs an explicit error. Do not unpack a complicated helper function or introduce batch caching here. The next step in the notebook repeats the same visible call for a few phrases. Source: https://docs.ollama.com/api/embed."
+  },
+  {
+    "objectID": "slides.html#continue-in-the-demonstration-notebook",
+    "href": "slides.html#continue-in-the-demonstration-notebook",
+    "title": "From Text to Exploratory Plots",
+    "section": "Continue in the demonstration notebook",
+    "text": "Continue in the demonstration notebook\nOpen demo_live.ipynb in Positron.\nWe will build:\nA phrase → one kicker → all kickers → a feature matrix → PHATE → plots that help answer a question.\nKeep demo_complete.ipynb available as a reference.\n\n14:00-15:00. End the slide deck here. Continue all remaining teaching, plotting, interpretation, filtering-versus-refitting, and the closing discussion in the notebook. Use the question about similar highlighted messages and their years/recorded roles to motivate each added plotting argument. Student investigation is in practice.ipynb, with its setup clearly separated from instructor code."
+  }
+]
